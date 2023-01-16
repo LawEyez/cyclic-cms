@@ -11,6 +11,20 @@
           <p class="text-sky-500 text-xs font-medium">January 20, 2023</p>
         </div>
       </div>
+      
+      <div class="border-b pb-4 border-black/10">
+        <div class="space-y-1">
+          <h3 class="text-lg font-semibold">Environment Variables in Build</h3>
+          <p class="text-sky-500 text-xs font-medium">January 20, 2023</p>
+        </div>
+      </div>
+      
+      <div class="border-b pb-4 border-black/10">
+        <div class="space-y-1">
+          <h3 class="text-lg font-semibold">Runtime Selection for New Apps</h3>
+          <p class="text-sky-500 text-xs font-medium">January 20, 2023</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -19,8 +33,9 @@
 
 export default {
   name: 'IndexPage',
-  // async asyncData({ $axios }) {
-  //   const data = await $axios.get('https://rn.cyclic.app/api/posts')
+  // async created() {
+  //   const data = await fetch('http://localhost:8000/api/posts')
+  //   console.log(data)
   // }
 }
 </script>

@@ -4,6 +4,10 @@
 
 @layer base {
   body {
-    @apply !font-sans;
+    font-family: 'Inter';
   }
+}
+
+.text-display {
+  font-family: 'Titillium Web';
 }

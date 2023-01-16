@@ -57,8 +57,5 @@ export default {
     }
   },
 
-  // Tailwind CSS.
-  tailwindcss: {
-    
-  }
+  target: 'static'
 }

@@ -57,5 +57,13 @@ export default {
     }
   },
 
-  target: 'static'
+  target: 'static',
+
+  publicRuntimeConfig: {
+    baseUrl: process.env.BASE_URL
+  },
+
+  env: {
+    baseUrl: process.env.BASE_URL
+  }
 }

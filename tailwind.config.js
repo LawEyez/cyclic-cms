@@ -8,5 +8,8 @@ module.exports = {
         'display': ['Titillium Web'],
       }
     }
-  }
+  },
+  plugins: [
+    require('@tailwindcss/typography')
+  ]
 }

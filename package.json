@@ -9,7 +9,8 @@
     "generate": "NODE_OPTIONS=--openssl-legacy-provider && nuxt generate",
     "lint:prettier": "prettier --check .",
     "lint": "yarn lint:prettier",
-    "lintfix": "prettier --write --list-different ."
+    "lintfix": "prettier --write --list-different .",
+    "postbuild": "yarn generate"
   },
   "dependencies": {
     "@tiptap/starter-kit": "^2.0.0-beta.209",

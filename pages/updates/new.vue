@@ -14,6 +14,7 @@
               placeholder="Add title"
               v-model="title"
               name="title"
+              required
             >
             <p class="text-xs text-neutral-800 font-medium">Title</p>
           </div>
@@ -26,6 +27,7 @@
               placeholder="Add description"
               v-model="description"
               name="description"
+              required
             >
             <p class="text-xs text-neutral-800 font-medium">Description</p>
             
@@ -63,6 +65,7 @@
                 placeholder="Enter username"
                 v-model="username"
                 name="username"
+                required
               >
               <p class="text-xs text-neutral-800 font-medium">Username</p>
               
@@ -76,6 +79,7 @@
                 placeholder="Enter password"
                 v-model="password"
                 name="password"
+                required
               >
               <p class="text-xs text-neutral-800 font-medium">Password</p>
               
@@ -98,9 +102,6 @@
 
 <script>
 import Editor from '~/components/Editor.vue'
-// import EasyMDE from 'easymde'
-
-// const easyMDE = new EasyMDE({element: document.getElementById('editor')});
 
 export default {
   components: {
@@ -129,8 +130,8 @@ export default {
         description: this.description,
         tag: this.tag,
         image: this.image,
-        markdown: this.markdown,
-        content: this.content
+        content: this.content,
+        user: this.username
       }
 
       console.log(body)
@@ -140,11 +141,15 @@ export default {
         body: JSON.stringify(body),
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Basic' + `${Buffer(this.username).toString('base64')}:${Buffer(this.password).toString('base64')}`
+          'Authorization': 'Basic ' + `${Buffer(this.username + ':' + this.password).toString('base64')}`
         }
       }
 
-      // const data = await fetch('http://localhost:8000/api/posts/create', options)
+      const data = await fetch(`${this.$config.baseUrl}/api/posts/create`, options).then(res => res.json())
+      
+      if (data.key) {
+        this.$router.push('/')
+      }
     }
   }
 }

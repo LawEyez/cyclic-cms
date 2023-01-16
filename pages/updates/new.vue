@@ -13,6 +13,7 @@
               type="text"
               placeholder="Add title"
               v-model="title"
+              name="title"
             >
             <p class="text-xs text-neutral-800 font-medium">Title</p>
           </div>
@@ -24,8 +25,10 @@
               type="text"
               placeholder="Add description"
               v-model="description"
+              name="description"
             >
             <p class="text-xs text-neutral-800 font-medium">Description</p>
+            
           </div>
           
           <div class="w-full space-y-2">
@@ -40,13 +43,15 @@
           </div>
 
           <div class="w-full">
-            <textarea id="editor"></textarea>
+            <client-only>
+              <editor v-model="content" />
+            </client-only>
           </div>
         </div>
 
         <!-- CREDENTIALS -->
         <div class="col-span-1 lg:col-span-2 bg-neutral-100 p-6 rounded-xl
-        space-y-4 h-max sticky top-16">
+        space-y-4 h-max lg:sticky lg:top-20">
           <h3 class="font-semibold">Add Credentials</h3>
 
           <div class="pb-4 space-y-2">
@@ -57,8 +62,10 @@
                 type="text"
                 placeholder="Enter username"
                 v-model="username"
+                name="username"
               >
               <p class="text-xs text-neutral-800 font-medium">Username</p>
+              
             </div>
             
             <div class="w-full space-y-2">
@@ -68,8 +75,10 @@
                 type="password"
                 placeholder="Enter password"
                 v-model="password"
+                name="password"
               >
               <p class="text-xs text-neutral-800 font-medium">Password</p>
+              
             </div>
           </div>
         </div>
@@ -88,11 +97,16 @@
 </template>
 
 <script>
+import Editor from '~/components/Editor.vue'
 // import EasyMDE from 'easymde'
 
 // const easyMDE = new EasyMDE({element: document.getElementById('editor')});
 
 export default {
+  components: {
+    Editor
+  },
+
   data() {
     return {
       title: '',
@@ -101,7 +115,8 @@ export default {
       image: '',
       markdown: '',
       username: '',
-      password: ''
+      password: '',
+      content: ''
     }
   },
 
@@ -115,19 +130,19 @@ export default {
         tag: this.tag,
         image: this.image,
         markdown: this.markdown,
-        username: this.username,
-        password: this.password
+        content: this.content
       }
 
       console.log(body)
 
-      // const options = {
-      //   method: 'POST',
-      //   body: JSON.stringify(body),
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   }
-      // }
+      const options = {
+        method: 'POST',
+        body: JSON.stringify(body),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Basic' + `${Buffer(this.username).toString('base64')}:${Buffer(this.password).toString('base64')}`
+        }
+      }
 
       // const data = await fetch('http://localhost:8000/api/posts/create', options)
     }

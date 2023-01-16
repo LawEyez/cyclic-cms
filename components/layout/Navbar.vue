@@ -1,8 +1,10 @@
 <template>
-  <nav class="fixed top-0 left-0 w-full h-14 border-b border-black/10 bg-white/95
+  <nav class="fixed top-0 left-0 w-full h-14 border-b border-black/10 bg-white/90
   backdrop-blur-sm">
     <div class="h-full px-6 xl:px-0 lg:max-w-screen-lg mx-auto flex items-center justify-between">
-      <nuxt-link to="/" class="font-bold">cyclic</nuxt-link>
+      <nuxt-link to="/" class="font-extrabold text-display text-xl">
+        cyclic
+      </nuxt-link>
 
       <div class="flex items-center gap-4">
         <nuxt-link

@@ -45,9 +45,11 @@
           </div>
 
           <div class="w-full">
-            <client-only>
+            <!-- <client-only>
               <editor v-model="content" />
-            </client-only>
+            </client-only> -->
+
+            <textarea class=""></textarea>
           </div>
         </div>
 
@@ -133,8 +135,6 @@ export default {
         content: this.content,
         user: this.username
       }
-
-      console.log(body)
 
       const options = {
         method: 'POST',

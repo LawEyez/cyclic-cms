@@ -44,12 +44,19 @@
             <p class="text-xs text-neutral-800 font-medium">Tag</p>
           </div>
 
-          <div class="w-full">
+          <div class="w-full space-y-2">
             <!-- <client-only>
               <editor v-model="content" />
             </client-only> -->
 
-            <textarea class=""></textarea>
+            <textarea
+              class="w-full py-4 border-b border-b-black/10 focus:border-b-black
+              transition outline-none"
+              placeholder="Write away..."
+              v-model="content"
+              rows="5"
+            ></textarea>
+            <p class="text-xs text-neutral-800 font-medium">Content</p>
           </div>
         </div>
 

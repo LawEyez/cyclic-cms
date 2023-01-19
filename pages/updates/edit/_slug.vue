@@ -1,8 +1,9 @@
 <template>
   <div class="space-y-6">
     <h1 class="font-bold text-xl">Edit update</h1>
-
-    <div class="">
+    
+    <div v-if="loading">Loading...</div>
+    <div v-else>
       <form class="grid gap-10 grid-cols-1 lg:grid-cols-5" @submit="handleSubmit">
         <!-- UPDATE -->
         <div class="space-y-4 col-span-1 lg:col-span-3">
@@ -44,12 +45,19 @@
             <p class="text-xs text-neutral-800 font-medium">Tag</p>
           </div>
 
-          <div class="w-full">
+          <div class="w-full space-y-2">
             <!-- <client-only>
               <editor v-model="content" />
             </client-only> -->
 
-            <textarea class="w-full" v-model="update.content"></textarea>
+            <textarea
+              class="w-full py-4 border-b border-b-black/10 focus:border-b-black
+              transition outline-none"
+              placeholder="Write away..."
+              v-model="update.content"
+              rows="5"
+            ></textarea>
+            <p class="text-xs text-neutral-800 font-medium">Content</p>
           </div>
         </div>
 
@@ -112,6 +120,7 @@ export default {
 
   data() {
     return {
+      loading: false,
       update: {
         title: '',
         description: '',
@@ -127,11 +136,13 @@ export default {
   },
 
   async created() {
+    this.loading = true
     const data = await fetch(`${this.$config.baseUrl}/api/posts/get/${this.$route.params.slug}`).then(res => res.json())
     this.update = {
       ...data.props,
       key: this.$route.params.slug
     }
+    this.loading = false
   },
 
   methods: {

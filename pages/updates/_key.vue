@@ -1,6 +1,5 @@
 <template>
   <div class="">
-    
     <div v-if="loading">Loading...</div>
     <div v-else class="space-y-6">
       <h1 class="text-xl font-bold">{{ update.props.title }}</h1>

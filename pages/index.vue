@@ -14,8 +14,9 @@
               {{ new Date(update.props.created).toDateString() }}
             </p>
           </div>
-          <nuxt-link class="text-xs capitalize" :to="`updates/${update.key}`">view</nuxt-link>
         </nuxt-link>
+        
+        <nuxt-link class="text-xs capitalize" :to="`updates/${update.key}`">view</nuxt-link>
       </div>
     </div>
   </div>

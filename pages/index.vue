@@ -5,18 +5,20 @@
     </div>
 
     <div class="space-y-4">
-      <div v-for="update of updates" :key="update.key" class="border-b pb-4 border-black/10">
-        <nuxt-link :to="`updates/edit/${update.key}`">
-          <div class="space-y-1">
-            <h3 class="text-lg font-semibold">{{ update.props.title }}</h3>
+      <no-cache>
+        <div v-for="update of updates" :key="update.key" class="border-b pb-4 border-black/10">
+          <nuxt-link :to="`updates/edit/${update.key}`">
+            <div class="space-y-1">
+              <h3 class="text-lg font-semibold">{{ update.props.title }}</h3>
 
-            <p class="text-sky-500 text-xs font-medium">
-              {{ new Date(update.props.created).toDateString() }}
-            </p>
-          </div>
-          <nuxt-link class="text-xs capitalize" :to="`updates/${update.key}`">view</nuxt-link>
-        </nuxt-link>
-      </div>
+              <p class="text-sky-500 text-xs font-medium">
+                {{ new Date(update.props.created).toDateString() }}
+              </p>
+            </div>
+            <nuxt-link class="text-xs capitalize" :to="`updates/${update.key}`">view</nuxt-link>
+          </nuxt-link>
+        </div>
+      </no-cache>
     </div>
   </div>
 </template>

@@ -4,8 +4,8 @@
       <h1 class="font-bold text-xl">Updates</h1>
     </div>
 
+    <no-cache>
     <div class="space-y-4">
-      <no-cache>
         <div v-for="update of updates" :key="update.key" class="border-b pb-4 border-black/10">
           <nuxt-link :to="`updates/edit/${update.key}`">
             <div class="space-y-1">
@@ -18,8 +18,8 @@
             <nuxt-link class="text-xs capitalize" :to="`updates/${update.key}`">view</nuxt-link>
           </nuxt-link>
         </div>
-      </no-cache>
-    </div>
+      </div>
+    </no-cache>
   </div>
 </template>
 

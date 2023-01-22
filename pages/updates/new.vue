@@ -155,7 +155,7 @@ export default {
       const data = await fetch(`${this.$config.baseUrl}/api/posts/create`, options).then(res => res.json())
       
       if (data.key) {
-        this.$router.push('/')
+        this.$router.push(`/updates/${data.key}`)
       }
     }
   }

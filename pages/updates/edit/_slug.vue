@@ -128,8 +128,6 @@ export default {
         title: '',
         description: '',
         tag: '',
-        image: '',
-        markdown: '',
         username: '',
         password: '',
         content: '',

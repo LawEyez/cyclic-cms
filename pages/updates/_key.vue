@@ -8,6 +8,7 @@
           {{ new Date(update.props.created).toDateString() }}
         </p>
       </div>
+      <img :src="update.props.image" class="w-80 h-auto" :alt="update.props.title">
       <div v-html="$md.render(update.props.content)" class="prose"></div>
       <!-- <nuxt-content :document="update.props.content" class="prose"></nuxt-content> -->
     </div>
@@ -25,7 +26,8 @@ export default {
 
   async created() {
     this.loading = true
-    const data = await fetch(`${this.$config.baseUrl}/api/posts/get/${this.$route.params.key}`).then(res => res.json())
+    const data = await fetch(`${this.$config.baseUrl}/api/posts/get/${this.$route.params.key}`)
+      .then(res => res.json())
 
     if (data.key) {
       this.update = data

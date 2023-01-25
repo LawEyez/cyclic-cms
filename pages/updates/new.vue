@@ -154,7 +154,8 @@ export default {
         tag: this.tag,
         image: this.image,
         content: this.content,
-        user: this.username
+        user: this.username,
+        published: new Date()
       }
 
       const options = {

@@ -152,6 +152,8 @@ export default {
     async handleSubmit(e) {
       e.preventDefault()
 
+      const { username, password, image, ...rest } = this.update
+
       // Image upload.
       if (this.input_file) {
         const fileInfo = await presignUpload({
@@ -160,10 +162,8 @@ export default {
         }, this.$config.baseUrl)
 
         await uploadToS3(fileInfo, this.input_file)
-        this.update.image = fileInfo.fields.key
+        rest.image = fileInfo.fields.key
       }
-
-      const { username, password, ...rest } = this.update
 
       const options = {
         method: 'POST',

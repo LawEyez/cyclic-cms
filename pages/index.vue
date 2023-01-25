@@ -7,12 +7,16 @@
     <div v-if="loading">Loading...</div>
     <div v-else class="space-y-4">
       <div v-for="update of updates" :key="update.key" class="border-b pb-4 border-black/10 flex gap-4">
-        <img
+        <div
+          class="w-48 h-32 rounded-lg bg-neutral-200 overflow-hidden"
           v-if="update.props.image.length"
-          :src="update.props.image"
-          :alt="update.props.title"
-          class="w-48 h-32 rounded-lg object-cover"
-        />
+        >
+          <img
+            :src="update.props.image"
+            :alt="update.props.title"
+            class="w-full h-full object-cover"
+          />
+        </div>
 
         <div class="flex flex-col gap-4">
           <nuxt-link :to="`updates/edit/${update.key}`">

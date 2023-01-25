@@ -6,7 +6,11 @@
 
     <div v-if="loading">Loading...</div>
     <div v-else class="space-y-4">
-      <div v-for="update of updates" :key="update.key" class="border-b pb-4 border-black/10 flex gap-4">
+      <div
+        v-for="update of updates"
+        :key="update.key"
+        class="border-b pb-4 border-black/10 flex flex-col sm:flex-row gap-4"
+      >
         <div
           class="w-48 h-32 rounded-lg bg-neutral-200 overflow-hidden"
           v-if="update.props.image.length"

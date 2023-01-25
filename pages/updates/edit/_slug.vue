@@ -59,6 +59,11 @@
             ></textarea>
             <p class="text-xs text-neutral-800 font-medium">Content</p>
           </div>
+
+          <div class="w-full space-y-2">
+            <input id="imageUpload" type="file" @change="input_file=$event.target.files[0]"/>
+            <p class="text-xs text-neutral-800 font-medium">Image</p>
+          </div>
         </div>
 
         <!-- CREDENTIALS -->
@@ -111,16 +116,14 @@
 </template>
 
 <script>
-import Editor from '~/components/Editor.vue'
+import { presignUpload, uploadToS3 } from '~/utils/s3'
 
 export default {
-  components: {
-    Editor
-  },
 
   data() {
     return {
       loading: false,
+      input_file: null,
       update: {
         title: '',
         description: '',
@@ -137,7 +140,9 @@ export default {
 
   async created() {
     this.loading = true
-    const data = await fetch(`${this.$config.baseUrl}/api/posts/get/${this.$route.params.slug}`).then(res => res.json())
+    const data = await fetch(`${this.$config.baseUrl}/api/posts/get/${this.$route.params.slug}`)
+      .then(res => res.json())
+
     this.update = {
       ...data.props,
       key: this.$route.params.slug
@@ -148,7 +153,18 @@ export default {
   methods: {
     async handleSubmit(e) {
       e.preventDefault()
-      console.log(this.update)
+
+      // Image upload.
+      if (this.input_file) {
+        const fileInfo = await presignUpload({
+          name: this.input_file.name,
+          type: this.input_file.type
+        }, this.$config.baseUrl)
+
+        await uploadToS3(fileInfo, this.input_file)
+        this.update.image = fileInfo.fields.key
+      }
+
       const { username, password, ...rest } = this.update
 
       const options = {
@@ -160,10 +176,11 @@ export default {
         }
       }
 
-      const data = await fetch(`${this.$config.baseUrl}/api/posts/create`, options).then(res => res.json())
+      const data = await fetch(`${this.$config.baseUrl}/api/posts/create`, options)
+        .then(res => res.json())
       
       if (data.key) {
-        this.$router.push('/')
+        this.$router.push(`/updates/${data.key}`)
       }
     }
   }

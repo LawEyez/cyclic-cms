@@ -6,25 +6,33 @@
 
     <div v-if="loading">Loading...</div>
     <div v-else class="space-y-4">
-      <div v-for="update of updates" :key="update.key" class="border-b pb-4 border-black/10">
-        <div class="flex items-center justify-between">
+      <div v-for="update of updates" :key="update.key" class="border-b pb-4 border-black/10 flex gap-4">
+        <img
+          v-if="update.props.image.length"
+          :src="update.props.image"
+          :alt="update.props.title"
+          class="w-48 h-32 rounded-lg object-cover"
+        />
+
+        <div class="flex flex-col gap-4">
           <nuxt-link :to="`updates/edit/${update.key}`">
             <div class="space-y-1">
+
               <h3 class="text-lg font-semibold">{{ update.props.title }}</h3>
   
               <p class="text-sky-500 text-xs font-medium">
                 {{ new Date(update.props.created).toDateString() }}
               </p>
             </div>
-
           </nuxt-link>
 
-          <button v-on:click="() => handleDelete(update.key)" class="text-xs">
-            Delete
-          </button>
+          <div class="flex items-center gap-3">
+            <nuxt-link class="text-xs capitalize" :to="`updates/${update.key}`">view</nuxt-link>
+            <button v-on:click="() => handleDelete(update.key)" class="text-xs">
+              Delete
+            </button>
+          </div>
         </div>
-
-        <nuxt-link class="text-xs capitalize" :to="`updates/${update.key}`">view</nuxt-link>
       </div>
 
       <div class="" v-if="updates.length === 0">No updates to show.</div>
@@ -70,17 +78,20 @@ export default {
       const username = prompt('Username')
       const password = prompt('Password')
 
-      const options = {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Basic ${Buffer.from(`${username}:${password}`).toString('base64')}`
+      if (username.trim().length && password.trim().length) {
+        const options = {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Basic ${Buffer.from(`${username}:${password}`).toString('base64')}`
+          }
         }
+  
+        const data = await fetch(`${this.$config.baseUrl}/api/posts/delete/${key}`, options)
+          .then(res => res.json())
+        
+        console.log(data)
       }
 
-      const data = await fetch(`${this.$config.baseUrl}/api/posts/delete/${key}`, options)
-        .then(res => res.json())
-      
-      console.log(data)
     }
   }
 
